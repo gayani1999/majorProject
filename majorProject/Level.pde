@@ -4,30 +4,29 @@ class Level {
   color red = color (255, 0, 0);
   color blue = color (0, 0, 255);
   int columns, rows, cellSize;
- 
+
 
   Level(String fileToLoad) {
 
-   String lines[] = loadStrings(fileToLoad);  
+    String lines[] = loadStrings(fileToLoad);  
 
     columns = lines.length;
     rows = lines[0].length();
 
-      println ("rows: " + rows, "columns: " + columns);
+    println ("rows: " + rows, "columns: " + columns);
 
     cellSize = width/rows;
 
     squares= new Square[rows][columns];
-  
- 
+
+
     for (int y = 0; y <columns; y++) {
       for (int x = 0; x < rows; x++) {
         char squareColor = lines[y].charAt(x);
         squares[x][y] = new Square(x*cellSize, y*cellSize, cellSize, squareColor);
       }
-    
+    }
   }
-}
   void display() {
 
     for (int y = 0; y < columns; y++) {
@@ -36,7 +35,7 @@ class Level {
       }
     }
   }
-  
+
   void changeColour() {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
@@ -51,11 +50,13 @@ class Level {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
 
-    // from red to blue{
+    // from red to blue
     if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != red) ) {
       return 0;
     } else {
-      squareToCheckFrom.changeColour();
+      //int x = squareToCheckFrom.x/cellSize;
+      //int y = squareToCheckFrom.y/cellSize;
+      squareToCheckFrom.changeColour(); //<>//
       int up = switchToBlue(squares[x][y-1]);
       int right = switchToBlue(squares[x+1][y]);
       int down = switchToBlue(squares[x][y+1]);
@@ -68,28 +69,27 @@ class Level {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
 
-    // from blue to red{
-    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != blue) ) {
+    println(x, y);
+    
+    // from blue to red
+    if ( inRange(squareToCheckFrom) == false || (squareToCheckFrom.squareColour != blue) ) {
+      println("not in range. returned 0.");
       return 0;
     } else {
-      squareToCheckFrom.changeColour();
+      println("ran the color change bit.");
+      //int x = squareToCheckFrom.x/cellSize;
+      //int y = squareToCheckFrom.y/cellSize;
+      squareToCheckFrom.changeColour(); //<>//
       int up = switchToRed(squares[x][y-1]);
       int right = switchToRed(squares[x+1][y]);
       int down = switchToRed(squares[x][y+1]);
       int left =  switchToRed(squares[x-1][y]);
-
       return up + right + down + left + 1;
     }
   }
 
   boolean inRange(Square squareToCheck) {
-  if ( ((squareToCheck.x/cellSize >= 0 && squareToCheck.x/cellSize < rows)&& (squareToCheck.y/cellSize >= 0 && squareToCheck.y/cellSize < columns))) {
-
-      println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize + " true");
-      return true;
-    }
-    println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize + " false");
-    return false;
+    //println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize);
+    return ((squareToCheck.x/cellSize >= 0 && squareToCheck.x/cellSize < rows) && (squareToCheck.y/cellSize >= 0 && squareToCheck.y/cellSize < columns));
   }
-  
 }

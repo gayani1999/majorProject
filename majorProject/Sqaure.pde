@@ -3,13 +3,13 @@ class Square {
   //data
   float sideLength;
   color squareColour;
-  float  x, y;
+  int  x, y;
 
   char squareType;
   boolean isOn;
 
   //constructor
-  Square(float _x, float _y, float _sideLength, char _squareType) {
+  Square(int _x, int _y, float _sideLength, char _squareType) {
     x = _x;
     y = _y;
     sideLength = _sideLength;
