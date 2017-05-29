@@ -52,7 +52,7 @@ class Level {
     int y = mouseY/cellSize;
 
     // from red to blue{
-    if ( !inRange(squareToCheckFrom) && ( squareToCheckFrom.squareColour != red) ) {
+    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != red) ) {
       return 0;
     } else {
       squareToCheckFrom.changeColour();
@@ -69,7 +69,7 @@ class Level {
     int y = mouseY/cellSize;
 
     // from blue to red{
-    if ( !inRange(squareToCheckFrom) && ( squareToCheckFrom.squareColour != blue) ) {
+    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != blue) ) {
       return 0;
     } else {
       squareToCheckFrom.changeColour();
@@ -83,7 +83,13 @@ class Level {
   }
 
   boolean inRange(Square squareToCheck) {
+  if ( ((squareToCheck.x/cellSize >= 0 && squareToCheck.x/cellSize < rows)&& (squareToCheck.y/cellSize >= 0 && squareToCheck.y/cellSize < columns))) {
 
-    return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < 20) || (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < 20));
+      println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize + " true");
+      return true;
+    }
+    println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize + " false");
+    return false;
   }
+  
 }
