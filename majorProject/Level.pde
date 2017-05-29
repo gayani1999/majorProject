@@ -84,6 +84,6 @@ class Level {
 
   boolean inRange(Square squareToCheck) {
 
-    return ((squareToCheck.x > 0 && squareToCheck.x < 20) || (squareToCheck.y > 0 && squareToCheck.y < 20));
+    return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < 20) || (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < 20));
   }
 }
