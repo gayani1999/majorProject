@@ -4,9 +4,10 @@ class Square {
   float sideLength;
   color squareColour;
   int  x, y;
-
+  color red = color (255, 0, 0);
+  color blue = color (0, 0, 255);
   char squareType;
-  boolean isOn;
+
 
   //constructor
   Square(int _x, int _y, float _sideLength, char _squareType) {
@@ -15,12 +16,9 @@ class Square {
     sideLength = _sideLength;
     squareType = _squareType;
     if (squareType == 'B') { //blue
-      squareColour = color(0, 0, 255);
-
-      isOn = true;
+      squareColour = blue;
     } else if (squareType == 'R') { //red 
-      squareColour = color(255, 0, 0);
-      isOn = false;
+      squareColour = red;
     }
   }
 
@@ -34,24 +32,11 @@ class Square {
 
   void changeColour() {
 
-    if (isOn == true) {
+    if (squareColour == blue) {
       squareColour = color(255, 0, 0);
-      isOn = false;
-    } else if (isOn == false) {
+    } else if (squareColour == red) {
       squareColour = color(0, 0, 255);
-      isOn = true;
     }
     display();
-  }
-  boolean isSwitched() {
-    if (isOn == true) {
-      squareColour = color(255, 0, 0);
-      isOn = false;
-    } else if (isOn == false) {
-      squareColour = color(0, 0, 255);
-      isOn = true;
-    }
-    display();
-    return isOn;
   }
 }
