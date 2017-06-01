@@ -13,7 +13,7 @@ class Level { //<>// //<>//
   Level(String fileToLoad) {
 
 
-    state = 0;
+//    state = 0;
     String lines[] = loadStrings(fileToLoad);  
 
     columns = lines.length;
@@ -40,7 +40,7 @@ class Level { //<>// //<>//
         squares[x][y].display();
       }
     }
-    loadButtons();
+ //   loadButtons();
   }
 
   //void changeColour() {
@@ -94,21 +94,21 @@ class Level { //<>// //<>//
   //    return up + right + down + left + 1;
   //  }
   //}
-  void loadButtons() {
-    whiteButton  = new Button(width*0.95, height*0.1, white);
-    blueButton  = new Button(width*0.95, height*0.3, blue);
-    redButton = new Button(width*0.95, height*0.5, red);
-    purpleButton = new Button(width*0.95, height*0.7, purple);
-    whiteButton.display();
-    blueButton.display();
-    redButton.display();
-    purpleButton.display();
-  }
+  //void loadButtons() {
+  //  whiteButton  = new Button(width*0.95, height*0.1, white);
+  //  blueButton  = new Button(width*0.95, height*0.3, blue);
+  //  redButton = new Button(width*0.95, height*0.5, red);
+  //  purpleButton = new Button(width*0.95, height*0.7, purple);
+  //  whiteButton.display();
+  //  blueButton.display();
+  //  redButton.display();
+  //  purpleButton.display();
+  //}
 
   void switchTo() {
      if (state == 0) { 
     if (whiteButton.isMouseHovering()) {
-      //println("white");
+      println("white");
       colorToSwitchTo = white;
     } else if (blueButton.isMouseHovering()) {
      // println("blue");

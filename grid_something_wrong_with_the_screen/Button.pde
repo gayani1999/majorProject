@@ -21,7 +21,7 @@ class Button {
     fontSize = theWidth * 0.2;
     hasBeenClicked = false;
   }
-
+  
   Button(float _x, float _y, String _label) {
     x = _x;
     y = _y;
@@ -30,9 +30,9 @@ class Button {
   Button(float _x, float _y, color _colour) {
     x = _x;
     y = _y;
-    backgroundColor = _colour;
-    label = " ";
-    theWidth = width * 0.045;
+   backgroundColor = _colour;
+   label = " ";
+     theWidth = width * 0.045;
     theHeight = height *0.045;
     fontSize = 1;
   }
@@ -51,7 +51,7 @@ class Button {
       unfocusedDisplay();
     }
   }
-
+  
   void checkForClick() {
     if (isMouseHovering()) {
       hasBeenClicked = true;
@@ -64,7 +64,7 @@ class Button {
 
   boolean isMouseHovering() {
     if ( (mouseX > x - theWidth/2) && (mouseX < x + theWidth/2) &&
-      (mouseY > y - theHeight/2) && (mouseY < y + theHeight/2)) {
+         (mouseY > y - theHeight/2) && (mouseY < y + theHeight/2)) {
       return true;
     } else {
       return false;
