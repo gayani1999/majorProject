@@ -14,5 +14,6 @@ void draw() {
 
 
 void mousePressed() {
+  println(mouseX, mouseY);
   currentLevel.changeColour();
 }

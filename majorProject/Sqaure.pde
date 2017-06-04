@@ -6,6 +6,7 @@ class Square {
   int  x, y;
   color red = color (255, 0, 0);
   color blue = color (0, 0, 255);
+  color black = color(0);
   char squareType;
 
 
@@ -19,12 +20,14 @@ class Square {
       squareColour = blue;
     } else if (squareType == 'R') { //red 
       squareColour = red;
+    } else if (squareType == 'X') { //red 
+      squareColour = black;
     }
   }
 
   //behaviour
   void display() {
-    noStroke();
+    //noStroke();
 
     fill(squareColour);
     rect(x, y, sideLength, sideLength);
