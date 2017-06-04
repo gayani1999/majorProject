@@ -3,10 +3,17 @@ class Level { //<>// //<>//
   Square[][] squares;
   color red = color (255, 0, 0);
   color blue = color (0, 0, 255);
-  int columns, rows, cellSize;
 
+  int columns, rows, cellSize;
+  Button whiteButton, redButton, blueButton, purpleButton;
+boolean haveWon;
 
   Level(String fileToLoad) {
+
+
+    blueButton  = new Button(width*0.95, height*0.3, blue);
+    redButton = new Button(width*0.95, height*0.5, red);
+
 
     String lines[] = loadStrings(fileToLoad);  
 
@@ -15,11 +22,11 @@ class Level { //<>// //<>//
 
     println ("rows: " + rows, "columns: " + columns);
 
-    cellSize = width/rows;
+    cellSize = int(width*.90/rows);
 
     squares= new Square[rows][columns];
 
-
+  haveWon = false;
     for (int y = 0; y <columns; y++) {
       for (int x = 0; x < rows; x++) {
         char squareColor = lines[y].charAt(x);
@@ -56,12 +63,13 @@ class Level { //<>// //<>//
     } else {
       x = squareToCheckFrom.x/cellSize;
       y = squareToCheckFrom.y/cellSize;
+       checkForWin();
       squareToCheckFrom.changeColour();
       int up = switchToBlue(squares[x][y-1]);
       int right = switchToBlue(squares[x+1][y]);
       int down = switchToBlue(squares[x][y+1]);
       int left =  switchToBlue(squares[x-1][y]);
-
+    
       return up + right + down + left + 1;
     }
   }
@@ -77,6 +85,7 @@ class Level { //<>// //<>//
       return 0;
     } else {
       println("ran the color change bit.");
+           checkForWin();
       x = squareToCheckFrom.x/cellSize;
       y = squareToCheckFrom.y/cellSize;
       squareToCheckFrom.changeColour();
@@ -84,7 +93,7 @@ class Level { //<>// //<>//
       int right = switchToRed(squares[x+1][y]);
       int down = switchToRed(squares[x][y+1]);
       int left =  switchToRed(squares[x-1][y]);
-      println("squares to change: "+ up+right+left+down+1);
+
       return up + right + down + left + 1;
     }
   }
@@ -92,5 +101,21 @@ class Level { //<>// //<>//
   boolean inRange(Square squareToCheck) {
     //println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize);
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
+  }
+  void loadButtons() {
+
+    blueButton.display();
+    redButton.display();
+  }
+
+boolean checkForWin() {
+    for (int y = 0; y <columns; y++) {
+      for (int x = 0; x < rows; x++) {
+        if (squares[x][y].squareColour == blue ||squares[x][y].squareColour == red) {
+         return true;
+        }
+      }
+    }
+    return false;
   }
 }
