@@ -3,10 +3,14 @@ class Level { //<>// //<>//
   Square[][] squares;
   color red = color (255, 0, 0);
   color blue = color (0, 0, 255);
+  color yellow = color(255, 255, 0);
+  color purple = color(255, 0, 255);
+  color squareColour;
+  color buttonColour;
 
   int columns, rows, cellSize;
   Button whiteButton, redButton, blueButton, purpleButton;
-boolean haveWon;
+  boolean haveWon;
 
   Level(String fileToLoad) {
 
@@ -22,11 +26,11 @@ boolean haveWon;
 
     println ("rows: " + rows, "columns: " + columns);
 
-    cellSize = int(width*.90/rows);
+    cellSize = int(width/rows);
 
     squares= new Square[rows][columns];
 
-  haveWon = false;
+    haveWon = false;
     for (int y = 0; y <columns; y++) {
       for (int x = 0; x < rows; x++) {
         char squareColor = lines[y].charAt(x);
@@ -47,75 +51,52 @@ boolean haveWon;
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
     if (squares[x][y].squareColour == red) {
-      switchToBlue(squares[x][y]);
+      squareColour = red;
     } else if (squares[x][y].squareColour == blue) {
-      switchToRed(squares[x][y]);
+      squareColour = blue;
     }
+    switchColour(squares[x][y], squareColour);
   }
 
-  int switchToBlue(Square squareToCheckFrom) {
+
+  int switchColour(Square squareToCheckFrom, color squareColour) {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
 
-    // from red to blue
-    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != red) ) {
+    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != squareColour) ) {
       return 0;
     } else {
       x = squareToCheckFrom.x/cellSize;
       y = squareToCheckFrom.y/cellSize;
-       checkForWin();
-      squareToCheckFrom.changeColour();
-      int up = switchToBlue(squares[x][y-1]);
-      int right = switchToBlue(squares[x+1][y]);
-      int down = switchToBlue(squares[x][y+1]);
-      int left =  switchToBlue(squares[x-1][y]);
-    
-      return up + right + down + left + 1;
-    }
-  }
-  int switchToRed(Square squareToCheckFrom) {
-    int x = mouseX/cellSize;
-    int y = mouseY/cellSize;
 
-    println(x, y);
-
-    // from blue to red
-    if ( inRange(squareToCheckFrom) == false || (squareToCheckFrom.squareColour != blue) ) {
-      println("not in range. returned 0.");
-      return 0;
-    } else {
-      println("ran the color change bit.");
-           checkForWin();
-      x = squareToCheckFrom.x/cellSize;
-      y = squareToCheckFrom.y/cellSize;
-      squareToCheckFrom.changeColour();
-      int up = switchToRed(squares[x][y-1]);
-      int right = switchToRed(squares[x+1][y]);
-      int down = switchToRed(squares[x][y+1]);
-      int left =  switchToRed(squares[x-1][y]);
+      squareToCheckFrom.changeColour(buttonColour);
+      int up = switchColour(squares[x][y-1], squareColour);
+      int right = switchColour(squares[x+1][y], squareColour);
+      int down = switchColour(squares[x][y+1], squareColour);
+      int left =  switchColour(squares[x-1][y], squareColour);
 
       return up + right + down + left + 1;
     }
   }
-
+  
   boolean inRange(Square squareToCheck) {
-    //println("squareToCheck.x/cellSize: " + squareToCheck.x/cellSize + " squareToCheck.y/cellSize: " + squareToCheck.y/cellSize);
+
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
   }
+  
   void loadButtons() {
-
     blueButton.display();
     redButton.display();
   }
 
-boolean checkForWin() {
-    for (int y = 0; y <columns; y++) {
-      for (int x = 0; x < rows; x++) {
-        if (squares[x][y].squareColour == blue ||squares[x][y].squareColour == red) {
-         return true;
+  boolean checkForWin() {
+    for (int y = 0; y < columns - 1; y++) {
+      for (int x = 0; x < rows - 1; x++) {
+        if (squares[x][y].squareColour != blue || squares[x][y].squareColour != red) {
+          return false;
         }
       }
     }
-    return false;
+    return true;
   }
 }
