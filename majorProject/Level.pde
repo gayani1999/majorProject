@@ -6,7 +6,7 @@ class Level { //<>// //<>//
   color yellow = color(255, 255, 0);
   color purple = color(255, 0, 255);
   color squareColour;
-  color buttonColour;
+  color colourToSwitchTo;
 
   int columns, rows, cellSize;
   Button whiteButton, redButton, blueButton, purpleButton;
@@ -30,7 +30,6 @@ class Level { //<>// //<>//
 
     squares= new Square[rows][columns];
 
-    haveWon = false;
     for (int y = 0; y <columns; y++) {
       for (int x = 0; x < rows; x++) {
         char squareColor = lines[y].charAt(x);
@@ -69,7 +68,7 @@ class Level { //<>// //<>//
       x = squareToCheckFrom.x/cellSize;
       y = squareToCheckFrom.y/cellSize;
 
-      squareToCheckFrom.changeColour(buttonColour);
+      squareToCheckFrom.changeColour(colourToSwitchTo);
       int up = switchColour(squares[x][y-1], squareColour);
       int right = switchColour(squares[x+1][y], squareColour);
       int down = switchColour(squares[x][y+1], squareColour);
@@ -89,14 +88,25 @@ class Level { //<>// //<>//
     redButton.display();
   }
 
-  boolean checkForWin() {
-    for (int y = 0; y < columns - 1; y++) {
-      for (int x = 0; x < rows - 1; x++) {
+  void checkForWin() {
+    for (int y = 1; y < columns - 1; y++) {
+      for (int x = 1; x < rows - 1; x++) {
         if (squares[x][y].squareColour != blue || squares[x][y].squareColour != red) {
-          return false;
+          haveWon = false;
         }
       }
     }
-    return true;
+    haveWon = true;
   }
+  
+ boolean haveWon(){
+   checkForWin();
+   return haveWon; 
+ }
+ 
+ void changeColourToSwitchTo(color _colourToSwitchTo){
+ colourToSwitchTo = _colourToSwitchTo;
+ 
+ }
+ 
 }
