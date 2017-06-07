@@ -62,13 +62,13 @@ class Level { //<>// //<>//
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
 
-    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != squareColour) ) {
+    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != squareColour)) {
       return 0;
     } else {
       x = squareToCheckFrom.x/cellSize;
       y = squareToCheckFrom.y/cellSize;
 
-      squareToCheckFrom.changeColour(colourToSwitchTo);
+      squareToCheckFrom.changeColour();
       int up = switchColour(squares[x][y-1], squareColour);
       int right = switchColour(squares[x+1][y], squareColour);
       int down = switchColour(squares[x][y+1], squareColour);
@@ -77,36 +77,39 @@ class Level { //<>// //<>//
       return up + right + down + left + 1;
     }
   }
-  
+
   boolean inRange(Square squareToCheck) {
 
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
   }
-  
+
   void loadButtons() {
     blueButton.display();
     redButton.display();
   }
 
-  void checkForWin() {
+ void checkForWin() {
     for (int y = 1; y < columns - 1; y++) {
       for (int x = 1; x < rows - 1; x++) {
         if (squares[x][y].squareColour != blue || squares[x][y].squareColour != red) {
+
           haveWon = false;
         }
       }
     }
     haveWon = true;
   }
-  
- boolean haveWon(){
-   checkForWin();
-   return haveWon; 
- }
- 
- void changeColourToSwitchTo(color _colourToSwitchTo){
- colourToSwitchTo = _colourToSwitchTo;
- 
- }
- 
+
+  boolean haveWon() {
+    checkForWin();
+    return haveWon;
+  }
+
+  void changeSwitchToColour (char _colourToSwitchTo) {
+    if (_colourToSwitchTo == 'b') {
+      colourToSwitchTo = blue;
+    } else if (_colourToSwitchTo == 'r') {
+      colourToSwitchTo = red;
+    }
+  }
 }

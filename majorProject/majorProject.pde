@@ -18,10 +18,14 @@ void draw() {
 
 void mousePressed() {
   println(mouseX, mouseY);
+ 
   currentLevel.changeColour();
+   println(currentLevel.haveWon);
+
  
 }
 void keyPressed(){
+  currentLevel.changeSwitchToColour(key);
 
 
 }
