@@ -1,31 +1,21 @@
 Level currentLevel;
-
+int state = 0;
 void setup() {
-
-
   size(600, 600);  
 
   currentLevel = new Level("lvl1.txt");
 }
 
 void draw() {
-  currentLevel.display();
- // currentLevel.loadButtons();
- 
+currentLevel.goToCorrectPlace();
 
 }
-
 
 void mousePressed() {
   println(mouseX, mouseY);
- 
+  println((mouseX/currentLevel.cellSize), mouseY/currentLevel.cellSize);
   currentLevel.changeColour();
-   println(currentLevel.haveWon);
-
- 
 }
-void keyPressed(){
+void keyPressed() {
   currentLevel.changeSwitchToColour(key);
-
-
 }
