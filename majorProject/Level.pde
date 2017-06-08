@@ -26,7 +26,7 @@ class Level { //<>// //<>//
 
     println ("rows: " + rows, "columns: " + columns);
 
-    cellSize = int(width*.95/rows);
+    cellSize = int(width/rows);
 
     squares= new Square[rows][columns];
 
@@ -65,7 +65,7 @@ class Level { //<>// //<>//
     if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) {
       return 0;
     } else {
-      squareToCheckFrom.changeColour();
+      squareToCheckFrom.changeColour(colourToSwitchTo);
       int up = switchColour(squares[x][y-1], originalsquareColour);
       int right = switchColour(squares[x+1][y], originalsquareColour);
       int down = switchColour(squares[x][y+1], originalsquareColour);
@@ -102,23 +102,26 @@ class Level { //<>// //<>//
   //  return haveWon;
   //}
 
-  void changeSwitchToColour (char _colourToSwitchTo) {
-    if (_colourToSwitchTo == 'b') {
+  void changeSwitchToColour (char letter) {
+    if (letter == 'b') {
       colourToSwitchTo = blue;
-    } else if (_colourToSwitchTo == 'r') {
+    } else if (letter == 'r') {
       colourToSwitchTo = red;
+    } else if (letter == 'p') {
+      colourToSwitchTo = purple;
+    }else if (letter == 'y') {
+      colourToSwitchTo = yellow;
     }
   }
   void goToCorrectPlace() {
     if (state == 0) {
       background(0);
-      loadButtons();
+
       state = 1;
     } else if (state == 1) {
       display();
       state = 2;
     } else if (state == 2) {
-       
     }
   }
 }

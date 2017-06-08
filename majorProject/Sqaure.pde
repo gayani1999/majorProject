@@ -48,8 +48,8 @@ class Square {
     }
     display();
   }
-    //void changeColour(color colourToSwitchTo) {
-    //  squareColour = colourToSwitchTo;
-    //  display();
+    void changeColour(color colourToSwitchTo) {
+      squareColour = colourToSwitchTo;
+      display();
   }
-//}
+}
