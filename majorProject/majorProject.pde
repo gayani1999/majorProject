@@ -10,6 +10,10 @@ void setup() {
 
 void draw() {
   goToCorrectPlace();
+  textAlign(CENTER, CENTER);
+  fill(255);
+  textSize(20);
+  text("Moves Left: ", width*.116, height*.975);
 }
 
 void mousePressed() {
