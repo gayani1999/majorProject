@@ -1,24 +1,26 @@
-class Level { //<>// //<>//
+class Level {  //<>//
 
+  //data
   Square[][] squares;
-  color red = color (255, 0, 0);
-  color blue = color (0, 0, 255);
-  color yellow = color(255, 255, 0);
-  color purple = color(255, 0, 255);
+  color red, blue, purple, yellow;
   color squareColour;
   color colourToSwitchTo, originalsquareColour;
-
-  int columns, rows, cellSize, state;
-  Button whiteButton, redButton, blueButton, purpleButton;
+  int moves;
+  int columns, rows, cellSize, levelState;
+  //Button whiteButton, redButton, blueButton, purpleButton;
   boolean haveWon;
 
+  //construtor
   Level(String fileToLoad) {
+    //blueButton  = new Button(width*0.95, height*0.3, blue);
+    //redButton = new Button(width*0.95, height*0.5, red);
+    
+    red = color (255, 0, 0);
+    blue = color (0, 0, 255);
+    yellow = color(255, 255, 0);
+    purple = color(255, 0, 255);
 
-
-    blueButton  = new Button(width*0.95, height*0.3, blue);
-    redButton = new Button(width*0.95, height*0.5, red);
-
-    state = 0;
+    levelState = 0;
     String lines[] = loadStrings(fileToLoad);  
     haveWon = false;
     columns = lines.length;
@@ -37,6 +39,7 @@ class Level { //<>// //<>//
       }
     }
   }
+  //behaviour
   void display() {
 
     for (int y = 0; y < columns; y++) {
@@ -50,17 +53,18 @@ class Level { //<>// //<>//
   void changeColour() {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-
+    if(squares[x][y].squareColour != colourToSwitchTo){ // only do this if the colour of the square is not the same as the colour that it needs to switch to
     switchColour(squares[x][y], squares[x][y].squareColour);
-
-    //put check win fucntion here
+    }//else{
+    //display();
+    //}
   }
-
 
   int switchColour(Square squareToCheckFrom, color _originalsquareColour) {
     originalsquareColour = _originalsquareColour;
     int x = squareToCheckFrom.x/cellSize;
     int y = squareToCheckFrom.y/cellSize;
+    
     if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) {
       return 0;
     } else {
@@ -70,33 +74,30 @@ class Level { //<>// //<>//
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
       if (checkForWin()) {
-        state = 1;
-        println("state: " + state);
+        levelState = 1;
+        println("levelState: " + levelState);
       }
       return up + right + down + left + 1;
     }
   }
 
   boolean inRange(Square squareToCheck) {
-
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
   }
 
-  void loadButtons() {
-    blueButton.display();
-    redButton.display();
-  }
+  //void loadButtons() {
+  //  blueButton.display();
+  //  redButton.display();
+  //}
 
   boolean checkForWin() {
     for (int y = 1; y < columns - 1; y++) {
       for (int x = 1; x < rows - 1; x++) {
         if (squares[x][y].squareColour != colourToSwitchTo) {
-          println("got here - false");
           return false;
         }
       }
     }
-    println("got here - true");
     return true;
   }
 
@@ -111,6 +112,16 @@ class Level { //<>// //<>//
       colourToSwitchTo = purple;
     } else if (letter == 'y') {
       colourToSwitchTo = yellow;
+    }
+  }
+
+  void goToCorrectPlace() {
+    if (levelState == 0) { //playing game 
+      background(0);
+      display();
+    } else if (levelState == 1) { // win screen/moving to the next level 
+      background(255);
+      display();
     }
   }
 }

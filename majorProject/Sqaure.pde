@@ -4,13 +4,8 @@ class Square {
   float sideLength;
   color squareColour;
   int  x, y;
-  color red = color (255, 0, 0);
-  color blue = color (0, 0, 255);
-  color yellow = color(255, 255, 0);
-  color purple = color(255, 0, 255);
-  color black = color(0);
+  color red, blue, purple, yellow, black;
   char squareType;
-
 
   //constructor
   Square(int _x, int _y, float _sideLength, char _squareType) {
@@ -18,6 +13,11 @@ class Square {
     y = _y;
     sideLength = _sideLength;
     squareType = _squareType;
+    red = color (255, 0, 0);
+    blue = color (0, 0, 255);
+    yellow = color(255, 255, 0);
+    purple = color(255, 0, 255);
+    black = color(0);
     if (squareType == 'B') { //blue
       squareColour = blue;
     } else if (squareType == 'R') { //red 
@@ -33,21 +33,12 @@ class Square {
 
   //behaviour
   void display() {
-    //noStroke();
-    stroke(255);
+    noStroke();
+    // stroke(255);
     fill(squareColour);
     rect(x, y, sideLength, sideLength);
   }
 
-  void changeColour() {
-
-    if (squareColour == blue) {
-      squareColour = color(255, 0, 0);
-    } else if (squareColour == red) {
-      squareColour = color(0, 0, 255);
-    }
-    display();
-  }
   void changeColour(color colourToSwitchTo) {
     squareColour = colourToSwitchTo;
     display();

@@ -37,12 +37,6 @@ class Button {
     fontSize = 1;
   }
 
-  //Button(float x, float y, String label) {
-  //  this.x = x;
-  //  this.y = y;
-  //  this.label = label;
-  //}
-
   //behaviour
   void display() {
     if ( isMouseHovering() ) {
