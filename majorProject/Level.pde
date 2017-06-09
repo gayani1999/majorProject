@@ -6,7 +6,7 @@ class Level { //<>// //<>//
   color yellow = color(255, 255, 0);
   color purple = color(255, 0, 255);
   color squareColour;
-  color colourToSwitchTo;
+  color colourToSwitchTo, originalsquareColour;
 
   int columns, rows, cellSize, state;
   Button whiteButton, redButton, blueButton, purpleButton;
@@ -20,7 +20,7 @@ class Level { //<>// //<>//
 
     state = 0;
     String lines[] = loadStrings(fileToLoad);  
-
+    haveWon = false;
     columns = lines.length;
     rows = lines[0].length();
 
@@ -50,16 +50,15 @@ class Level { //<>// //<>//
   void changeColour() {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-    if (squares[x][y].squareColour == red) {
-      squareColour = red;
-    } else if (squares[x][y].squareColour == blue) {
-      squareColour = blue;
-    }
-    switchColour(squares[x][y], squareColour);
+
+    switchColour(squares[x][y], squares[x][y].squareColour);
+
+    //put check win fucntion here
   }
 
 
-  int switchColour(Square squareToCheckFrom, color originalsquareColour) {
+  int switchColour(Square squareToCheckFrom, color _originalsquareColour) {
+    originalsquareColour = _originalsquareColour;
     int x = squareToCheckFrom.x/cellSize;
     int y = squareToCheckFrom.y/cellSize;
     if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) {
@@ -70,7 +69,10 @@ class Level { //<>// //<>//
       int right = switchColour(squares[x+1][y], originalsquareColour);
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
-
+      if (checkForWin()) {
+        state = 1;
+        println("state: " + state);
+      }
       return up + right + down + left + 1;
     }
   }
@@ -85,43 +87,30 @@ class Level { //<>// //<>//
     redButton.display();
   }
 
-  //void checkForWin() {
-  //  for (int y = 1; y < columns - 1; y++) {
-  //    for (int x = 1; x < rows - 1; x++) {
-  //      if (squares[x][y].squareColour != blue || squares[x][y].squareColour != red) {
-
-  //        haveWon = false;
-  //      }
-  //    }
-  //  }
-  //  haveWon = true;
-  //}
-
-  //boolean haveWon() {
-  //  checkForWin();
-  //  return haveWon;
-  //}
+  boolean checkForWin() {
+    for (int y = 1; y < columns - 1; y++) {
+      for (int x = 1; x < rows - 1; x++) {
+        if (squares[x][y].squareColour != colourToSwitchTo) {
+          println("got here - false");
+          return false;
+        }
+      }
+    }
+    println("got here - true");
+    return true;
+  }
 
   void changeSwitchToColour (char letter) {
     if (letter == 'b') {
       colourToSwitchTo = blue;
     } else if (letter == 'r') {
       colourToSwitchTo = red;
+    } else if (letter == 'r') {
+      colourToSwitchTo = red;
     } else if (letter == 'p') {
       colourToSwitchTo = purple;
-    }else if (letter == 'y') {
+    } else if (letter == 'y') {
       colourToSwitchTo = yellow;
-    }
-  }
-  void goToCorrectPlace() {
-    if (state == 0) {
-      background(0);
-
-      state = 1;
-    } else if (state == 1) {
-      display();
-      state = 2;
-    } else if (state == 2) {
     }
   }
 }

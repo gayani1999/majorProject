@@ -34,7 +34,7 @@ class Square {
   //behaviour
   void display() {
     //noStroke();
-  stroke(255);
+    stroke(255);
     fill(squareColour);
     rect(x, y, sideLength, sideLength);
   }
@@ -48,8 +48,8 @@ class Square {
     }
     display();
   }
-    void changeColour(color colourToSwitchTo) {
-      squareColour = colourToSwitchTo;
-      display();
+  void changeColour(color colourToSwitchTo) {
+    squareColour = colourToSwitchTo;
+    display();
   }
 }
