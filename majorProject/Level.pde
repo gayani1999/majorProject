@@ -2,19 +2,21 @@ class Level {  //<>//
 
   //data
   Square[][] squares;
+  JSONObject moves;
   color red, blue, purple, yellow;
   color squareColour;
   color colourToSwitchTo, originalsquareColour;
-  int moves;
+  int movesLeft;
   int columns, rows, cellSize, levelState;
   //Button whiteButton, redButton, blueButton, purpleButton;
   boolean haveWon;
 
   //construtor
-  Level(String fileToLoad) {
+  Level(String fileToLoad, String _moves) {
     //blueButton  = new Button(width*0.95, height*0.3, blue);
     //redButton = new Button(width*0.95, height*0.5, red);
-    
+    moves = loadJSONObject(_moves);
+    movesLeft = moves.getInt("moves");
     red = color (255, 0, 0);
     blue = color (0, 0, 255);
     yellow = color(255, 255, 0);
@@ -47,24 +49,23 @@ class Level {  //<>//
         squares[x][y].display();
       }
     }
-    //loadButtons();
+  
+
   }
 
   void changeColour() {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-    if(squares[x][y].squareColour != colourToSwitchTo){ // only do this if the colour of the square is not the same as the colour that it needs to switch to
-    switchColour(squares[x][y], squares[x][y].squareColour);
-    }//else{
-    //display();
-    //}
+    if (squares[x][y].squareColour != colourToSwitchTo) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
+      switchColour(squares[x][y], squares[x][y].squareColour);
+    }
   }
 
   int switchColour(Square squareToCheckFrom, color _originalsquareColour) {
     originalsquareColour = _originalsquareColour;
     int x = squareToCheckFrom.x/cellSize;
     int y = squareToCheckFrom.y/cellSize;
-    
+
     if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) {
       return 0;
     } else {
@@ -102,15 +103,13 @@ class Level {  //<>//
   }
 
   void changeSwitchToColour (char letter) {
-    if (letter == 'b') {
+    if (letter == 'b'||letter == 'B') {
       colourToSwitchTo = blue;
-    } else if (letter == 'r') {
+    } else if (letter == 'r'||letter == 'R') {
       colourToSwitchTo = red;
-    } else if (letter == 'r') {
-      colourToSwitchTo = red;
-    } else if (letter == 'p') {
+    } else if (letter == 'p'||letter == 'P') {
       colourToSwitchTo = purple;
-    } else if (letter == 'y') {
+    } else if (letter == 'y'||letter == 'Y') {
       colourToSwitchTo = yellow;
     }
   }
@@ -120,7 +119,11 @@ class Level {  //<>//
       background(0);
       display();
     } else if (levelState == 1) { // win screen/moving to the next level 
-      background(255);
+      println("you won");
+      display();
+      levelState = 0;
+    } else if (levelState == 2) { // win screen/moving to the next level 
+      println("you lost");
       display();
     }
   }
