@@ -1,8 +1,11 @@
 Level currentLevel;
-int gameState = 0;
+int gameState;
 int whichLevel;
+Button start;
 void setup() {
   size(600, 600);  
+  gameState = 0;
+  start= new Button (width/2, height/2, width/3, height/12, "START");
   whichLevel = 2;
   if (whichLevel == 1) {
     currentLevel = new Level("lvl1.txt", "lvl1moves.json");
@@ -17,7 +20,7 @@ void setup() {
 
 void draw() {
 
-  currentLevel.goToCorrectPlace();
+  goToCorrectPlace();
   textAlign(CENTER, CENTER);
   fill(255);
   textSize(20);
@@ -27,13 +30,36 @@ void draw() {
 void mousePressed() {
   println(mouseX, mouseY);
   println((mouseX/currentLevel.cellSize), mouseY/currentLevel.cellSize);
-  if (currentLevel.levelState == 0) {
-    currentLevel.changeColour();
-    currentLevel.movesLeft--;
-    println("moves Left: " + currentLevel.movesLeft);
+  if (gameState == 0) {
+    //if the mouse is pressed where the start button is switch to state 1
+    if (start.isMouseHovering()) {
+      gameState = 1;
+    }
+    if (gameState == 1) {
+      displayGameMenu();
+    }
+  } else if (gameState == 2) {
+    if (currentLevel.levelState == 0) {
+      currentLevel.movesLeft--;
+      currentLevel.changeColour();  
+      println("moves Left: " + currentLevel.movesLeft);
+    }
   }
 }
 void keyPressed() {
 
   currentLevel.changeSwitchToColour(key);
+}
+void goToCorrectPlace() {
+  if (gameState == 0) {
+    displayStartScreen();
+  } else if (gameState == 1) {
+    currentLevel.goToCorrectPlace();
+  }
+}
+void displayStartScreen() {
+  background(255);
+  start.display();
+}
+void displayGameMenu() {
 }

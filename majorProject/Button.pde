@@ -7,25 +7,20 @@ class Button {
   String label;
   boolean hasBeenClicked;
 
-  //constructor(s)
-  Button() {
-    x = width/2;
-    y = height/2;
-    theWidth = width * 0.4;
-    theHeight = height *0.2;
-    backgroundColor = color(0);
-    fontColor = color(255);
-    hoverBackgroundColor = color(150);
-    hoverFont = color(0);
-    label = "Testing";
-    fontSize = theWidth * 0.2;
-    hasBeenClicked = false;
-  }
+//constructor
 
-  Button(float _x, float _y, String _label) {
+  Button(float _x, float _y, float _theWidth, float _theHeight, String _label) {
     x = _x;
     y = _y;
     label = _label;
+    theWidth  = _theWidth;
+    theHeight  = _theHeight;
+    backgroundColor = color(255);
+    fontColor = color(0);
+    hoverBackgroundColor = color(0);
+    hoverFont = color(255);
+    fontSize = theWidth * 0.15;
+    hasBeenClicked = false;
   }
   Button(float _x, float _y, color _colour) {
     x = _x;
