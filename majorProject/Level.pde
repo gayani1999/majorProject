@@ -56,8 +56,10 @@ class Level {  //<>//
   void changeColour() {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-    if (squares[x][y].squareColour != colourToSwitchTo) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
+    if (squares[x][y].squareColour != colourToSwitchTo && movesLeft > 0) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
       switchColour(squares[x][y], squares[x][y].squareColour);
+    } else if(movesLeft < 0){
+    levelState = 2;
     }
   }
 
@@ -121,7 +123,7 @@ class Level {  //<>//
     } else if (levelState == 1) { // win screen/moving to the next level 
       println("you won");
       display();
-      levelState = 0;
+     // levelState = 0;
     } else if (levelState == 2) { // win screen/moving to the next level 
       println("you lost");
       display();
