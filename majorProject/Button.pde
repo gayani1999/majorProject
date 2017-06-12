@@ -6,21 +6,23 @@ class Button {
   color backgroundColor, fontColor, hoverBackgroundColor, hoverFont;
   String label;
   boolean hasBeenClicked;
+  int whichLevel;
 
-//constructor
+  //constructor
 
-  Button(float _x, float _y, float _theWidth, float _theHeight, String _label) {
+  Button(float _x, float _y, float _theWidth, float _theHeight, String _label, color _backgroundColor) {
     x = _x;
     y = _y;
     label = _label;
     theWidth  = _theWidth;
     theHeight  = _theHeight;
-    backgroundColor = color(255);
+    backgroundColor = _backgroundColor;
     fontColor = color(0);
     hoverBackgroundColor = color(0);
     hoverFont = color(255);
     fontSize = theWidth * 0.15;
     hasBeenClicked = false;
+ 
   }
   Button(float _x, float _y, color _colour) {
     x = _x;

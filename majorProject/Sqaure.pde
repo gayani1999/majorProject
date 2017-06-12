@@ -34,7 +34,7 @@ class Square {
   //behaviour
   void display() {
     noStroke();
-    stroke(255);
+
     fill(squareColour);
     rect(x, y, sideLength, sideLength);
   }

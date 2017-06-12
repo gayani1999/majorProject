@@ -8,6 +8,7 @@ class Level {  //<>//
   color colourToSwitchTo, originalsquareColour;
   int movesLeft;
   int columns, rows, cellSize, levelState;
+  Button menu;
   //Button whiteButton, redButton, blueButton, purpleButton;
   boolean haveWon;
 
@@ -15,12 +16,14 @@ class Level {  //<>//
   Level(String fileToLoad, String _moves) {
     //blueButton  = new Button(width*0.95, height*0.3, blue);
     //redButton = new Button(width*0.95, height*0.5, red);
-    moves = loadJSONObject(_moves);
-    movesLeft = moves.getInt("moves");
     red = color (255, 0, 0);
     blue = color (0, 0, 255);
     yellow = color(255, 255, 0);
     purple = color(255, 0, 255);
+
+    menu = new Button( width *.95, height*.95, red);
+    moves = loadJSONObject(_moves);
+    movesLeft = moves.getInt("moves");
 
     levelState = 0;
     String lines[] = loadStrings(fileToLoad);  
@@ -49,17 +52,19 @@ class Level {  //<>//
         squares[x][y].display();
       }
     }
-  
 
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(20);
+    text("Moves Left: " + movesLeft, width*.116, height*.975);
+    menu.display();
   }
 
   void changeColour() {
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-    if (squares[x][y].squareColour != colourToSwitchTo && movesLeft > 0) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
+    if (squares[x][y].squareColour != colourToSwitchTo) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
       switchColour(squares[x][y], squares[x][y].squareColour);
-    } else if(movesLeft < 0){
-    levelState = 2;
     }
   }
 
@@ -123,7 +128,6 @@ class Level {  //<>//
     } else if (levelState == 1) { // win screen/moving to the next level 
       println("you won");
       display();
-     // levelState = 0;
     } else if (levelState == 2) { // win screen/moving to the next level 
       println("you lost");
       display();
