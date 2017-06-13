@@ -25,7 +25,8 @@ class Level {  //<>//
     purpleButton = new Button(width*0.96, height*0.5, purple);
     yellowButton = new Button(width*0.96, height*0.7, yellow);
 
-    menu = new Button( width *.96, height*.95, white);
+    menu = new Button( width *.96, height*.97, white);
+   
     moves = loadJSONObject(_moves);
     movesLeft = moves.getInt("moves");
 
@@ -62,6 +63,7 @@ class Level {  //<>//
     textSize(20);
     text("Moves Left: " + movesLeft, width*.116, height*.975);
     menu.display();
+
     loadButtons();
   }
 
@@ -88,7 +90,7 @@ class Level {  //<>//
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
       if (checkForWin()) {
-        levelState = 2;
+        levelState = 1;
         println("levelState: " + levelState);
       } else {
         levelState = 0;
@@ -124,16 +126,15 @@ class Level {  //<>//
     if (levelState == 0) { //playing game 
       background(0);
       display();
-    } else if (levelState == 1) { // win screen/moving to the next level 
+    } else if (levelState == 1) { // win screen
+      background(0);
       display();
-    } else if (levelState == 2) { // win screen/moving to the next level 
-      println("you won");
-      display();
-    } else if (levelState == 3) { // win screen/moving to the next level 
-      println("you lost");
+    } else if (levelState == 2) {//out of moves
+      println("you lost, out of moves");
       display();
     }
   }
+
   void changeSwitchToColour() {
     if (blueButton.isMouseHovering()) {
       colourToSwitchTo = blue;
@@ -144,6 +145,16 @@ class Level {  //<>//
     } else if (yellowButton.isMouseHovering()) {
       colourToSwitchTo = yellow;
     }
-    levelState = 1;
+  }
+  void changeSwitchToColour(char letter) {
+    if (letter == 'b') {
+      colourToSwitchTo = blue;
+    } else if (letter == 'r') {
+      colourToSwitchTo = red;
+    } else if (letter == 'p') {
+      colourToSwitchTo = purple;
+    } else if (letter == 'y') {
+      colourToSwitchTo = yellow;
+    }
   }
 }

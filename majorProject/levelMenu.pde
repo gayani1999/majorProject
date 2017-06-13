@@ -20,23 +20,20 @@ void chooseLevelToPlay() {
 
   if (lvl1.isMouseHovering()) {
     currentLevel = new Level("lvl1.txt", "lvl1moves.json");
-    gameState = 2;
   } else if (lvl2.isMouseHovering()) {
     currentLevel = new Level("lvl2.txt", "lvl2moves.json");
-
-    gameState = 2;
   } else if (lvl3.isMouseHovering()) {
     currentLevel = new Level("lvl3.txt", "lvl3moves.json");
-    gameState = 2;
   } else if (lvl4.isMouseHovering()) {
     currentLevel = new Level("lvl4.txt", "lvl4moves.json");
-    gameState = 2;
   } else {
     displayGameMenu();
+    gameState = 1;
   }
 
   // else if (lvl5.isClicked()) {
 
   // currentLevel = new Level("lvl5.txt", "lvl5moves.json");
   //}
+  gameState = 2;
 }
