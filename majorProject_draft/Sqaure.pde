@@ -3,55 +3,44 @@ class Square {
   //data
   float sideLength;
   color squareColour;
-  float  x, y;
-
+  int  x, y;
+  color red, blue, purple, yellow, black;
   char squareType;
-  boolean isOn;
 
   //constructor
-  Square(float _x, float _y, float _sideLength, char _squareType) {
+  Square(int _x, int _y, float _sideLength, char _squareType) {
     x = _x;
     y = _y;
     sideLength = _sideLength;
     squareType = _squareType;
+    red = color (255, 0, 0);
+    blue = color (0, 0, 255);
+    yellow = color(255, 255, 0);
+    purple = color(255, 0, 255);
+    black = color(0);
     if (squareType == 'B') { //blue
-      squareColour = color(0, 0, 255);
-
-      isOn = true;
+      squareColour = blue;
     } else if (squareType == 'R') { //red 
-      squareColour = color(255, 0, 0);
-      isOn = false;
+      squareColour = red;
+    } else if (squareType == 'Y') { //yellow
+      squareColour = yellow;
+    } else if (squareType == 'P') { //purple
+      squareColour = purple;
+    } else if (squareType == 'X') { //black (for the edges)
+      squareColour = black;
     }
   }
 
   //behaviour
   void display() {
-    stroke(0);
+    noStroke();
 
     fill(squareColour);
     rect(x, y, sideLength, sideLength);
   }
 
-  void changeColour() {
-
-    if (isOn == true) {
-      squareColour = color(255, 0, 0);
-      isOn = false;
-    } else if (isOn == false) {
-      squareColour = color(0, 0, 255);
-      isOn = true;
-    }
+  void changeColour(color colourToSwitchTo) {
+    squareColour = colourToSwitchTo;
     display();
-  }
-  boolean isSwitched() {
-    if (isOn == true) {
-      squareColour = color(255, 0, 0);
-      isOn = false;
-    } else if (isOn == false) {
-      squareColour = color(0, 0, 255);
-      isOn = true;
-    }
-    display();
-    return isOn;
   }
 }

@@ -3,68 +3,82 @@ class Button {
   float x, y;
   float theWidth, theHeight;
   float fontSize;
-  color backgroundColour, fontColour, hoverBackgroundColour, hoverFont;
+  color backgroundColor, fontColor, hoverBackgroundColor, hoverFont;
   String label;
   boolean hasBeenClicked;
+  int whichLevel;
 
   //constructor
-  Button() {
 
-    theWidth = width * 0.4;
-    theHeight = height * 0.2;
-    backgroundColour = color(0);
-    fontColour = color(255);
-    hoverBackgroundColour = color(150);
-    hoverFont =  color(0);
-    fontSize = theWidth * 0.2;
-    hasBeenClicked = false;
-  }
-
-  Button(float _x, float _y, String _label) {
+  Button(float _x, float _y, float _theWidth, float _theHeight, String _label, color _backgroundColor) {
     x = _x;
     y = _y;
     label = _label;
+    theWidth  = _theWidth;
+    theHeight  = _theHeight;
+    backgroundColor = _backgroundColor;
+    fontColor = color(0);
+    hoverBackgroundColor = color(0);
+    hoverFont = color(255);
+    fontSize = theWidth * 0.15;
+    hasBeenClicked = false;
+ 
   }
+  Button(float _x, float _y, color _colour) {
+    x = _x;
+    y = _y;
+    backgroundColor = _colour;
+    label = " ";
+    theWidth = width * 0.045;
+    theHeight = height *0.045;
+    fontSize = 1;
+  }
+
   //behaviour
   void display() {
-    if (mouseIsHovering()) {
+    if ( isMouseHovering() ) {
       focusedDisplay();
     } else {
       unfocusedDisplay();
     }
   }
-  boolean mouseIsHovering() {
-    if ( (mouseX > x - theWidth/2) && (mouseX < x + theWidth/2) && (mouseY > y - theHeight/2) && (mouseY < y + theHeight/2)) {
+
+  void checkForClick() {
+    if (isMouseHovering()) {
+      hasBeenClicked = true;
+    }
+  }
+
+  boolean isClicked() {
+    return hasBeenClicked;
+  }
+
+  boolean isMouseHovering() {
+    if ( (mouseX > x - theWidth/2) && (mouseX < x + theWidth/2) &&
+      (mouseY > y - theHeight/2) && (mouseY < y + theHeight/2)) {
       return true;
     } else {
       return false;
     }
   }
-  void checkForCLick() {
-    if (mouseIsHovering()) {
-      hasBeenClicked = true;
-    }
-  }
-  boolean isClicked() {
-    return hasBeenClicked;
-  }
 
   void unfocusedDisplay() {
     rectMode(CENTER);
-    fill(backgroundColour);
+    fill(backgroundColor);
     rect(x, y, theWidth, theHeight);
-    fill(fontColour);
-    textAlign(CENTER, CENTER);
+    fill(fontColor);
     textSize(fontSize);
+    textAlign(CENTER, CENTER);
     text(label, x, y);
   }
+
   void focusedDisplay() {
     rectMode(CENTER);
-    fill(hoverBackgroundColour);
+    fill(hoverBackgroundColor);
     rect(x, y, theWidth, theHeight);
     fill(hoverFont);
-    textAlign(CENTER, CENTER);
     textSize(fontSize);
+    textAlign(CENTER, CENTER);
     text(label, x, y);
   }
 }
