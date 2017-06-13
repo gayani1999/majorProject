@@ -24,12 +24,17 @@ void mousePressed() {
   } else if (gameState == 1) {
     chooseLevelToPlay();
   } else if (gameState == 2) {
+    currentLevel.changeSwitchColour();
+    gameState = 3;
+  } else if (gameState == 3) {
     if (currentLevel.levelState == 0) {
       currentLevel.movesLeft--;
       currentLevel.changeColour();
+      gameState = 2;
     }
+  } else if (gameState == 2 || gameState == 3) {
     if (currentLevel.menu.isMouseHovering()) {
-      gameState  =1;
+      gameState = 1;
     }
   }
 }

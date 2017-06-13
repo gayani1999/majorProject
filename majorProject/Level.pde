@@ -3,25 +3,29 @@ class Level {  //<>//
   //data
   Square[][] squares;
   JSONObject moves;
-  color red, blue, purple, yellow;
+  color red, blue, purple, yellow, white;
   color squareColour;
   color colourToSwitchTo, originalsquareColour;
   int movesLeft;
   int columns, rows, cellSize, levelState;
   Button menu;
-  //Button whiteButton, redButton, blueButton, purpleButton;
+  Button yellowButton, redButton, blueButton, purpleButton;
   boolean haveWon;
 
   //construtor
   Level(String fileToLoad, String _moves) {
-    //blueButton  = new Button(width*0.95, height*0.3, blue);
-    //redButton = new Button(width*0.95, height*0.5, red);
+
     red = color (255, 0, 0);
     blue = color (0, 0, 255);
     yellow = color(255, 255, 0);
     purple = color(255, 0, 255);
+    white = color(255);
+    blueButton  = new Button(width*0.96, height*0.1, blue);
+    redButton = new Button(width*0.96, height*0.3, red);
+    purpleButton = new Button(width*0.96, height*0.5, purple);
+    yellowButton = new Button(width*0.96, height*0.7, yellow);
 
-    menu = new Button( width *.95, height*.95, red);
+    menu = new Button( width *.96, height*.95, white);
     moves = loadJSONObject(_moves);
     movesLeft = moves.getInt("moves");
 
@@ -58,6 +62,7 @@ class Level {  //<>//
     textSize(20);
     text("Moves Left: " + movesLeft, width*.116, height*.975);
     menu.display();
+    loadButtons();
   }
 
   void changeColour() {
@@ -93,10 +98,12 @@ class Level {  //<>//
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
   }
 
-  //void loadButtons() {
-  //  blueButton.display();
-  //  redButton.display();
-  //}
+  void loadButtons() {
+    blueButton.display();
+    redButton.display();
+    purpleButton.display();
+    yellowButton.display();
+  }
 
   boolean checkForWin() {
     for (int y = 1; y < columns - 1; y++) {
@@ -131,6 +138,17 @@ class Level {  //<>//
     } else if (levelState == 2) { // win screen/moving to the next level 
       println("you lost");
       display();
+    }
+  }
+  void changeSwitchColour() {
+    if (blueButton.isMouseHovering()) {
+      colourToSwitchTo = blue;
+    } else if (redButton.isMouseHovering()) {
+      colourToSwitchTo = red;
+    } else if (purpleButton.isMouseHovering()) {
+      colourToSwitchTo = purple;
+    } else if (yellowButton.isMouseHovering()) {
+      colourToSwitchTo = yellow;
     }
   }
 }
