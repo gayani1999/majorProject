@@ -66,6 +66,7 @@ class Level {  //<>//
   }
 
   void changeColour() {
+
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
     if (squares[x][y].squareColour != colourToSwitchTo) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
@@ -87,8 +88,10 @@ class Level {  //<>//
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
       if (checkForWin()) {
-        levelState = 1;
+        levelState = 2;
         println("levelState: " + levelState);
+      } else {
+        levelState = 0;
       }
       return up + right + down + left + 1;
     }
@@ -116,31 +119,22 @@ class Level {  //<>//
     return true;
   }
 
-  void changeSwitchToColour (char letter) {
-    if (letter == 'b'||letter == 'B') {
-      colourToSwitchTo = blue;
-    } else if (letter == 'r'||letter == 'R') {
-      colourToSwitchTo = red;
-    } else if (letter == 'p'||letter == 'P') {
-      colourToSwitchTo = purple;
-    } else if (letter == 'y'||letter == 'Y') {
-      colourToSwitchTo = yellow;
-    }
-  }
 
   void goToCorrectPlace() {
     if (levelState == 0) { //playing game 
       background(0);
       display();
     } else if (levelState == 1) { // win screen/moving to the next level 
-      println("you won");
       display();
     } else if (levelState == 2) { // win screen/moving to the next level 
+      println("you won");
+      display();
+    } else if (levelState == 3) { // win screen/moving to the next level 
       println("you lost");
       display();
     }
   }
-  void changeSwitchColour() {
+  void changeSwitchToColour() {
     if (blueButton.isMouseHovering()) {
       colourToSwitchTo = blue;
     } else if (redButton.isMouseHovering()) {
@@ -150,5 +144,6 @@ class Level {  //<>//
     } else if (yellowButton.isMouseHovering()) {
       colourToSwitchTo = yellow;
     }
+    levelState = 1;
   }
 }
