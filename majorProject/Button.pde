@@ -65,7 +65,7 @@ class Button {
   void unfocusedDisplay() {
     rectMode(CENTER);
     fill(backgroundColor);
-    rect(x, y, theWidth, theHeight);
+    rect(x, y, theWidth, theHeight, 10);
     fill(fontColor);
     textSize(fontSize);
     textAlign(CENTER, CENTER);
@@ -75,7 +75,7 @@ class Button {
   void focusedDisplay() {
     rectMode(CENTER);
     fill(hoverBackgroundColor);
-    rect(x, y, theWidth, theHeight);
+    rect(x, y, theWidth, theHeight, 10);
     fill(hoverFont);
     textSize(fontSize);
     textAlign(CENTER, CENTER);

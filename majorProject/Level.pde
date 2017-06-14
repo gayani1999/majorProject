@@ -3,30 +3,29 @@ class Level {  //<>//
   //data
   Square[][] squares;
   JSONObject moves;
-  color red, blue, purple, yellow, white;
+  color colour1, colour2, colour3, colour4, white;
   color squareColour;
   color colourToSwitchTo, originalsquareColour;
   int movesLeft;
   int columns, rows, cellSize, levelState;
   Button menu;
-  Button yellowButton, redButton, blueButton, purpleButton;
+  // Button colour4Button, colour1Button, colour2Button, colour3Button;
   boolean haveWon;
 
   //construtor
   Level(String fileToLoad, String _moves) {
-
-    red = color (255, 0, 0);
-    blue = color (0, 0, 255);
-    yellow = color(255, 255, 0);
-    purple = color(255, 0, 255);
+    colour1 = color (80, 90, 126);
+    colour2 = color (89, 237, 166);
+    colour4 = color(69, 120, 227);
+    colour3 = color(255, 121, 184);
     white = color(255);
-    blueButton  = new Button(width*0.96, height*0.1, blue);
-    redButton = new Button(width*0.96, height*0.3, red);
-    purpleButton = new Button(width*0.96, height*0.5, purple);
-    yellowButton = new Button(width*0.96, height*0.7, yellow);
+    //colour2Button  = new Button(width*0.96, height*0.1, colour2);
+    //colour1Button = new Button(width*0.96, height*0.3, colour1);
+    //colour3Button = new Button(width*0.96, height*0.5, colour3);
+    //colour4Button = new Button(width*0.96, height*0.7, colour4);
 
     menu = new Button( width *.96, height*.97, white);
-   
+
     moves = loadJSONObject(_moves);
     movesLeft = moves.getInt("moves");
 
@@ -60,11 +59,14 @@ class Level {  //<>//
 
     textAlign(CENTER, CENTER);
     fill(255);
+    rect(width*.05, height*.97, cellSize, cellSize, 20);
+    fill(0);
     textSize(20);
-    text("Moves Left: " + movesLeft, width*.116, height*.975);
+    text( movesLeft, width*.05, height*.97);
     menu.display();
+    displayInstructions();
 
-    loadButtons();
+    //    loadButtons();
   }
 
   void changeColour() {
@@ -72,6 +74,7 @@ class Level {  //<>//
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
     if (squares[x][y].squareColour != colourToSwitchTo) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
+      movesLeft--;
       switchColour(squares[x][y], squares[x][y].squareColour);
     }
   }
@@ -89,12 +92,7 @@ class Level {  //<>//
       int right = switchColour(squares[x+1][y], originalsquareColour);
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
-      if (checkForWin()) {
-        levelState = 1;
-        println("levelState: " + levelState);
-      } else {
-        levelState = 0;
-      }
+      checkForWin();
       return up + right + down + left + 1;
     }
   }
@@ -103,14 +101,14 @@ class Level {  //<>//
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
   }
 
-  void loadButtons() {
-    blueButton.display();
-    redButton.display();
-    purpleButton.display();
-    yellowButton.display();
-  }
+  //void loadButtons() {
+  //  colour2Button.display();
+  //  colour1Button.display();
+  //  colour3Button.display();
+  //  colour4Button.display();
+  //}
 
-  boolean checkForWin() {
+  boolean haveWon() {
     for (int y = 1; y < columns - 1; y++) {
       for (int x = 1; x < rows - 1; x++) {
         if (squares[x][y].squareColour != colourToSwitchTo) {
@@ -129,32 +127,68 @@ class Level {  //<>//
     } else if (levelState == 1) { // win screen
       background(0);
       display();
+      fill(255);
+      rect(width/2, height/2, width, 100);
     } else if (levelState == 2) {//out of moves
       println("you lost, out of moves");
       display();
+       fill(0);
+      rect(width/2, height/2, width, 100);
     }
   }
 
-  void changeSwitchToColour() {
-    if (blueButton.isMouseHovering()) {
-      colourToSwitchTo = blue;
-    } else if (redButton.isMouseHovering()) {
-      colourToSwitchTo = red;
-    } else if (purpleButton.isMouseHovering()) {
-      colourToSwitchTo = purple;
-    } else if (yellowButton.isMouseHovering()) {
-      colourToSwitchTo = yellow;
+  //void changeSwitchToColour() {
+  //  if (colour2Button.isMouseHovering()) {
+  //    colourToSwitchTo = colour2;
+  //  } else if (colour1Button.isMouseHovering()) {
+  //    colourToSwitchTo = colour1;
+  //  } else if (colour3Button.isMouseHovering()) {
+  //    colourToSwitchTo = colour3;
+  //  } else if (colour4Button.isMouseHovering()) {
+  //    colourToSwitchTo = colour4;
+  //  }
+  //}
+  void changeSwitchToColour(char number) {
+    if (number == '1') {
+      colourToSwitchTo = colour1;
+    } else if (number == '2') {
+      colourToSwitchTo = colour2;
+    } else if (number == '3') {
+      colourToSwitchTo = colour3;
+    } else if (number == '4') {
+      colourToSwitchTo = colour4;
     }
   }
-  void changeSwitchToColour(char letter) {
-    if (letter == 'b') {
-      colourToSwitchTo = blue;
-    } else if (letter == 'r') {
-      colourToSwitchTo = red;
-    } else if (letter == 'p') {
-      colourToSwitchTo = purple;
-    } else if (letter == 'y') {
-      colourToSwitchTo = yellow;
+  void checkForWin() {
+    if (movesLeft == 0) {
+      if (haveWon()) {
+        levelState = 1;
+        println("levelState: " + levelState);
+      } else {
+        levelState = 2;
+      }
+    } else if (movesLeft > 0) {
+      levelState = 0;
     }
+  }
+  void displayInstructions() {
+    textSize(25);
+
+    textAlign(CENTER, CENTER);
+
+    fill(colour1);
+    rect(width*.36, height*.97, cellSize, cellSize, 20);
+    fill(colour2);
+    rect(width*.45, height*.97, cellSize, cellSize, 20);    
+    fill(colour3);
+    rect(width*.54, height*.97, cellSize, cellSize, 20);
+    fill(colour4);
+    rect(width*.63, height*.97, cellSize, cellSize, 20);
+
+    fill(255);
+    text("1", width*.36, height*.97);
+    text("2", width*.45, height*.97);
+    text("3", width*.54, height*.97);
+    text("4", width*.63, height*.97);
   }
 }

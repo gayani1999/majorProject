@@ -26,13 +26,10 @@ void mousePressed() {
   } else if (gameState == 2) {
 
     if (currentLevel.levelState == 0) {
-      //  currentLevel.changeSwitchToColour();
-      // } else if (currentLevel.levelState == 1) {
-      currentLevel.movesLeft--;
+    
+     
       currentLevel.changeColour();
-      if (currentLevel.movesLeft < 0) {
-        currentLevel.levelState = 2;
-      }
+     
     } else if (currentLevel.levelState == 2) {
       //add reset Button
       
