@@ -10,7 +10,6 @@ void setup() {
 }
 
 void draw() {
-
   goToCorrectPlace();
 }
 
@@ -26,19 +25,16 @@ void mousePressed() {
   } else if (gameState == 2) {
 
     if (currentLevel.levelState == 0) {
-    
-     
+
+
       currentLevel.changeColour();
-     
     } else if (currentLevel.levelState == 2) {
       //add reset Button
-      
     }
 
     if (currentLevel.menu.isMouseHovering()) {
       gameState = 1;
     }
-    
   }
 }
 void keyPressed() {
@@ -52,6 +48,7 @@ void goToCorrectPlace() {
     displayStartScreen();
   } else if (gameState == 1) {
     displayGameMenu();
+    
   } else if (gameState == 2) {
     currentLevel.goToCorrectPlace();
   }
