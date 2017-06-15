@@ -1,8 +1,7 @@
 class Level {  //<>//
 
   //data
-  Square[][] squares;
-  JSONObject moves;
+  Square[][] squares;  //JSONObject moves;
   color colour1, colour2, colour3, colour4, white;
   color squareColour;
   color colourToSwitchTo, originalsquareColour;
@@ -13,7 +12,7 @@ class Level {  //<>//
   boolean haveWon;
 
   //construtor
-  Level(String fileToLoad, String _moves) {
+  Level(String fileToLoad, int _movesLeft) {
     colour1 = color (80, 90, 126);
     colour2 = color (89, 237, 166);
     colour4 = color(69, 120, 227);
@@ -26,9 +25,7 @@ class Level {  //<>//
 
     menu = new Button( width *.96, height*.97, white);
 
-    moves = loadJSONObject(_moves);
-    movesLeft = moves.getInt("moves");
-
+    movesLeft = _movesLeft;
     levelState = 0;
     String lines[] = loadStrings(fileToLoad);  
     haveWon = false;
@@ -65,8 +62,6 @@ class Level {  //<>//
     text("MOVES LEFT: " + movesLeft, width*.5, height*.97);
     menu.display();
     displayKeyCode();
-
-    //    loadButtons();
   }
 
   void changeColour() {
@@ -130,12 +125,12 @@ class Level {  //<>//
       background(0);
       display();
       fill(255);
-      rect(width/2, height/2, width, 100);
+      rect(width/2, height/2, width, 100, 10);
     } else if (levelState == 2) {//out of moves
       println("you lost, out of moves");
       display();
       fill(0);
-      rect(width/2, height/2, width, 100);
+      rect(width/2, height/2, width, 100, 10);
     }
   }
 
@@ -154,7 +149,6 @@ class Level {  //<>//
     if (movesLeft == 0) {
       if (haveWon()) {
         levelState = 1;
-        println("levelState: " + levelState);
       } else {
         levelState = 2;
       }

@@ -20,7 +20,7 @@ class Button {
     fontColor = color(0);
     hoverBackgroundColor = color(0);
     hoverFont = color(255);
-    fontSize = theWidth * 0.15;
+    fontSize = theWidth * 0.13;
     hasBeenClicked = false;
  
   }
