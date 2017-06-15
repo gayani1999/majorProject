@@ -56,6 +56,7 @@ void keyPressed() {
   if (currentLevel.levelState == 0) {
     currentLevel.changeSwitchToColour(key);
   }
+
 }
 
 void goToCorrectPlace() {
@@ -71,6 +72,8 @@ void goToCorrectPlace() {
 }
 
 void displayStartScreen() {
+  textSize(40);
+  
   background(255);
   start.display();
   help.display();
