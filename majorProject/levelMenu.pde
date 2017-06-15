@@ -29,7 +29,6 @@ void chooseLevelToPlay() {
   } else if (lvl5.isMouseHovering()) {
   currentLevel = new Level("lvl5.txt", "lvl5moves.json");
   } else {
-    displayGameMenu();
     gameState = 1;
   }
   gameState = 2;

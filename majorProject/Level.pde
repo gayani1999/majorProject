@@ -59,12 +59,12 @@ class Level {  //<>//
 
     textAlign(CENTER, CENTER);
     fill(255);
-    rect(width*.05, height*.97, cellSize, cellSize, 20);
+    rect(width*.5, height*.97, cellSize*8, cellSize, 20);
     fill(0);
-    textSize(20);
-    text( movesLeft, width*.05, height*.97);
+    textSize(25);
+    text("MOVES LEFT: " + movesLeft, width*.5, height*.97);
     menu.display();
-    displayInstructions();
+    displayKeyCode();
 
     //    loadButtons();
   }
@@ -85,6 +85,7 @@ class Level {  //<>//
     int y = squareToCheckFrom.y/cellSize;
 
     if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) {
+
       return 0;
     } else {
       squareToCheckFrom.changeColour(colourToSwitchTo);
@@ -93,6 +94,7 @@ class Level {  //<>//
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
       checkForWin();
+
       return up + right + down + left + 1;
     }
   }
@@ -132,22 +134,11 @@ class Level {  //<>//
     } else if (levelState == 2) {//out of moves
       println("you lost, out of moves");
       display();
-       fill(0);
+      fill(0);
       rect(width/2, height/2, width, 100);
     }
   }
 
-  //void changeSwitchToColour() {
-  //  if (colour2Button.isMouseHovering()) {
-  //    colourToSwitchTo = colour2;
-  //  } else if (colour1Button.isMouseHovering()) {
-  //    colourToSwitchTo = colour1;
-  //  } else if (colour3Button.isMouseHovering()) {
-  //    colourToSwitchTo = colour3;
-  //  } else if (colour4Button.isMouseHovering()) {
-  //    colourToSwitchTo = colour4;
-  //  }
-  //}
   void changeSwitchToColour(char number) {
     if (number == '1') {
       colourToSwitchTo = colour1;
@@ -171,24 +162,24 @@ class Level {  //<>//
       levelState = 0;
     }
   }
-  void displayInstructions() {
+  void displayKeyCode() {
     textSize(25);
 
     textAlign(CENTER, CENTER);
 
     fill(colour1);
-    rect(width*.36, height*.97, cellSize, cellSize, 20);
+    rect(width*0.96, height*.425, cellSize, cellSize, 20);
     fill(colour2);
-    rect(width*.45, height*.97, cellSize, cellSize, 20);    
+    rect(width*.96, height*.475, cellSize, cellSize, 20);    
     fill(colour3);
-    rect(width*.54, height*.97, cellSize, cellSize, 20);
+    rect(width*.96, height*.525, cellSize, cellSize, 20);
     fill(colour4);
-    rect(width*.63, height*.97, cellSize, cellSize, 20);
+    rect(width*.96, height*.575, cellSize, cellSize, 20);
 
     fill(255);
-    text("1", width*.36, height*.97);
-    text("2", width*.45, height*.97);
-    text("3", width*.54, height*.97);
-    text("4", width*.63, height*.97);
+    text("1", width*.96, height*.425);
+    text("2", width*.96, height*.475);
+    text("3", width*.96, height*.525);
+    text("4", width*.96, height*.575);
   }
 }
