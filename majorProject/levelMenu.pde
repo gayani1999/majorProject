@@ -1,11 +1,11 @@
 Button lvl1, lvl2, lvl3, lvl4, lvl5;
-int levels[];
+color levelButtonColour = color (89, 237, 166);
 void createMenuButtons() {
-  lvl1 = new Button(width/10, height/8, width/10, height/10, "1", color(0, 0, 255));
-  lvl2 = new Button(width/3.3, height/8, width/10, height/10, "2", color(0, 0, 255));
-  lvl3 = new Button(width/2, height/8, width/10, height/10, "3", color(0, 0, 255));
-  lvl4 = new Button(width/1.4, height/8, width/10, height/10, "4", color(0, 0, 255));
-  lvl5 = new Button(width/1.1, height/8, width/10, height/10, "5", color(0, 0, 255));
+  lvl1 = new Button(width/10, height/8, width/10, height/10, "1", levelButtonColour);
+  lvl2 = new Button(width/3.3, height/8, width/10, height/10, "2", levelButtonColour);
+  lvl3 = new Button(width/2, height/8, width/10, height/10, "3", levelButtonColour);
+  lvl4 = new Button(width/1.4, height/8, width/10, height/10, "4", levelButtonColour);
+  lvl5 = new Button(width/1.1, height/8, width/10, height/10, "5", levelButtonColour);
 }
 void displayGameMenu() {
   background(255);
@@ -27,7 +27,7 @@ void chooseLevelToPlay() {
   } else if (lvl4.isMouseHovering()) {
     currentLevel = new Level("lvl4.txt", "lvl4moves.json");
   } else if (lvl5.isMouseHovering()) {
-  currentLevel = new Level("lvl5.txt", "lvl5moves.json");
+    currentLevel = new Level("lvl5.txt", "lvl5moves.json");
   } else {
     gameState = 1;
   }
