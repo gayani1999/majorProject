@@ -3,17 +3,18 @@ import ddf.minim.*;
 Level currentLevel;
 int gameState;
 Button start, help, playGame;
+PImage instructions;
 
 Minim minim;
 AudioPlayer player;
- 
+
 void setup() {
   size(600, 600);  
   gameState = 0;
   start= new Button (width/2, height/2.5, width/3, height/12, "START", color(255));
   help= new Button (width/2, height/2, width/3, height/12, "INSTRUCTIONS", color(255));
   playGame= new Button( width *.96, height*.97, color(255));
-  
+  instructions = loadImage("instructions.png");
   minim = new Minim(this);
 
   player = minim.loadFile("Mysterious-Puzzle.mp3");
@@ -23,7 +24,6 @@ void setup() {
 void draw() {
   player.play();
   goToCorrectPlace();
-  
 }
 
 void mousePressed() {
@@ -56,7 +56,6 @@ void keyPressed() {
   if (currentLevel.levelState == 0) {
     currentLevel.changeSwitchToColour(key);
   }
-
 }
 
 void goToCorrectPlace() {
@@ -73,13 +72,16 @@ void goToCorrectPlace() {
 
 void displayStartScreen() {
   textSize(40);
-  
+
   background(255);
   start.display();
   help.display();
 }
 
 void displayHelpMenu() {
-  background(0);
+  background(255);
   playGame.display();
+  instructions.resize(int(width*.912),int(height/2));
+  imageMode(CENTER);
+  image(instructions, width/2, height/2);
 }

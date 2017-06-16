@@ -1,14 +1,14 @@
 class Level {  //<>//
 
   //data
-  Square[][] squares;  //JSONObject moves;
-  color colour1, colour2, colour3, colour4, white;
+  Square[][] squares;  
+  color colour1, colour2, colour3, colour4, white, black;
   color squareColour;
   color colourToSwitchTo, originalsquareColour;
   int movesLeft;
   int columns, rows, cellSize, levelState;
   Button menu;
-  // Button colour4Button, colour1Button, colour2Button, colour3Button;
+ 
   boolean haveWon;
 
   //construtor
@@ -18,11 +18,8 @@ class Level {  //<>//
     colour4 = color(69, 120, 227);
     colour3 = color(255, 121, 184);
     white = color(255);
-    //colour2Button  = new Button(width*0.96, height*0.1, colour2);
-    //colour1Button = new Button(width*0.96, height*0.3, colour1);
-    //colour3Button = new Button(width*0.96, height*0.5, colour3);
-    //colour4Button = new Button(width*0.96, height*0.7, colour4);
-
+    black = color(0);
+ 
     menu = new Button( width *.96, height*.97, white);
 
     movesLeft = _movesLeft;
@@ -68,7 +65,8 @@ class Level {  //<>//
 
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-    if (squares[x][y].squareColour != colourToSwitchTo) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
+
+    if (squares[x][y].squareColour != colourToSwitchTo && (colourToSwitchTo != 0)) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
       movesLeft--;
       switchColour(squares[x][y], squares[x][y].squareColour);
     }
@@ -98,12 +96,6 @@ class Level {  //<>//
     return ((squareToCheck.x/cellSize > 0 && squareToCheck.x/cellSize < rows-1) && (squareToCheck.y/cellSize > 0 && squareToCheck.y/cellSize < columns-1));
   }
 
-  //void loadButtons() {
-  //  colour2Button.display();
-  //  colour1Button.display();
-  //  colour3Button.display();
-  //  colour4Button.display();
-  //}
 
   boolean haveWon() {
     for (int y = 1; y < columns - 1; y++) {
