@@ -18,7 +18,6 @@ void displayGameMenu() {
   lvl6.display();
 }
 
-
 void chooseLevelToPlay() {
 
   if (lvl1.isMouseHovering()) {

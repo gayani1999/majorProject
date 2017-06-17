@@ -13,7 +13,7 @@ void setup() {
   gameState = 0;
   start= new Button (width/2, height/2.5, width/3, height/12, "START", color(255));
   help= new Button (width/2, height/2, width/3, height/12, "INSTRUCTIONS", color(255));
-  playGame= new Button( width *.96, height*.97, color(255));
+  playGame= new Button( width *.95, height*.95, width/12, height/12,"MENU", color (255));
   instructions = loadImage("instructions.png");
   minim = new Minim(this);
 
@@ -81,7 +81,7 @@ void displayStartScreen() {
 void displayHelpMenu() {
   background(255);
   playGame.display();
-  instructions.resize(int(width*.912),int(height/2));
+  instructions.resize(int(width*.912), int(height/2));
   imageMode(CENTER);
   image(instructions, width/2, height/2);
 }

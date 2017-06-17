@@ -8,10 +8,10 @@ class Level {  //<>//
   int movesLeft;
   int columns, rows, cellSize, levelState;
   Button menu;
- 
+
   boolean haveWon;
 
-  //construtor
+  //constructor
   Level(String fileToLoad, int _movesLeft) {
     colour1 = color (80, 90, 126);
     colour2 = color (89, 237, 166);
@@ -19,8 +19,8 @@ class Level {  //<>//
     colour3 = color(255, 121, 184);
     white = color(255);
     black = color(0);
- 
-    menu = new Button( width *.96, height*.97, white);
+
+    menu = new Button( width *.96, height*.97, width/13, height/17,"MENU",white);
 
     movesLeft = _movesLeft;
     levelState = 0;
@@ -29,7 +29,7 @@ class Level {  //<>//
     columns = lines.length;
     rows = lines[0].length();
 
-    println ("rows: " + rows, "columns: " + columns);
+  //  println ("rows: " + rows, "columns: " + columns);
 
     cellSize = int(width/rows);
 
@@ -114,15 +114,9 @@ class Level {  //<>//
       background(0);
       display();
     } else if (levelState == 1) { // win screen
-      background(0);
-      display();
-      fill(255);
-      rect(width/2, height/2, width, 100, 10);
+      displayWinScreen();
     } else if (levelState == 2) {//out of moves
-      println("you lost, out of moves");
-      display();
-      fill(0);
-      rect(width/2, height/2, width, 100, 10);
+      displayLoseScreen();
     }
   }
 
@@ -167,5 +161,21 @@ class Level {  //<>//
     text("2", width*.96, height*.475);
     text("3", width*.96, height*.525);
     text("4", width*.96, height*.575);
+  }
+  void displayWinScreen() {
+    display();
+    fill(255);
+    rect(width/2, height/2, width, 100, 10);
+    fill(colour1);
+    textSize(50);
+    text("NICE JOB!", width/2, height/2);
+  }
+  void displayLoseScreen() { 
+    display();
+    fill(255);
+    rect(width/2, height/2, width, 100, 10);
+    fill(colour2);
+    textSize(40);
+    text("OUT OF MOVES! TRY AGAIN!", width/2, height/2);
   }
 }
