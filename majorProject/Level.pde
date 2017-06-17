@@ -38,7 +38,7 @@ class Level {  //<>//
     for (int y = 0; y <columns; y++) {
       for (int x = 0; x < rows; x++) {
         char squareColor = lines[y].charAt(x);
-        squares[x][y] = new Square(x*cellSize, y*cellSize, cellSize, squareColor);
+        squares[x][y] = new Square(x*cellSize, y*cellSize, cellSize, squareColor); //creating the 2D array grid
       }
     }
   }
@@ -65,8 +65,8 @@ class Level {  //<>//
 
     int x = mouseX/cellSize;
     int y = mouseY/cellSize;
-
-    if (squares[x][y].squareColour != colourToSwitchTo && (colourToSwitchTo != 0)) { // only do this if the colour of the square is not the same as the colour that it needs to switch to
+// only do this if the colour of the square is not the same as the colour that it needs to switch to and if a key has been pressed
+    if (squares[x][y].squareColour != colourToSwitchTo && (colourToSwitchTo != 0)) { 
       movesLeft--;
       switchColour(squares[x][y], squares[x][y].squareColour);
     }
@@ -77,16 +77,18 @@ class Level {  //<>//
     int x = squareToCheckFrom.x/cellSize;
     int y = squareToCheckFrom.y/cellSize;
 
-    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) {
+    if ( !inRange(squareToCheckFrom) || ( squareToCheckFrom.squareColour != originalsquareColour)) { //base case
 
       return 0;
     } else {
+       //change the colour of specific square
       squareToCheckFrom.changeColour(colourToSwitchTo);
-      int up = switchColour(squares[x][y-1], originalsquareColour);
+      //doing recursion on the adjecent squares of a specific square
+      int up = switchColour(squares[x][y-1], originalsquareColour); 
       int right = switchColour(squares[x+1][y], originalsquareColour);
       int down = switchColour(squares[x][y+1], originalsquareColour);
       int left =  switchColour(squares[x-1][y], originalsquareColour);
-      checkForWin();
+      checkForWin(); 
 
       return up + right + down + left + 1;
     }
@@ -98,9 +100,9 @@ class Level {  //<>//
 
 
   boolean haveWon() {
-    for (int y = 1; y < columns - 1; y++) {
+    for (int y = 1; y < columns - 1; y++) { 
       for (int x = 1; x < rows - 1; x++) {
-        if (squares[x][y].squareColour != colourToSwitchTo) {
+        if (squares[x][y].squareColour != colourToSwitchTo) { //if the squareColour is not the same as the last colourToSwitchTo the game haas not been won
           return false;
         }
       }
@@ -120,7 +122,7 @@ class Level {  //<>//
     }
   }
 
-  void changeSwitchToColour(char number) {
+  void changeSwitchToColour(char number) { //takes the key pressed and changes colorToSwitchTo to the corresponding colour
     if (number == '1') {
       colourToSwitchTo = colour1;
     } else if (number == '2') {
@@ -132,17 +134,17 @@ class Level {  //<>//
     }
   }
   void checkForWin() {
-    if (movesLeft == 0) {
+    if (movesLeft == 0) { //only do this if all moves have been taken and then go to the correct state (win or lose)
       if (haveWon()) {
         levelState = 1;
       } else {
         levelState = 2;
       }
-    } else if (movesLeft > 0) {
+    } else if (movesLeft > 0) { // if there are moves still left continue with the game
       levelState = 0;
     }
   }
-  void displayKeyCode() {
+  void displayKeyCode() { //displaying the colours and the corresponding number
     textSize(25);
 
     textAlign(CENTER, CENTER);

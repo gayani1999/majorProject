@@ -27,33 +27,29 @@ void draw() {
 }
 
 void mousePressed() {
-  println(mouseX, mouseY);
-  //println((mouseX/currentLevel.cellSize), mouseY/currentLevel.cellSize);
-  if (gameState == 0) {
+  if (gameState == 0) { //show start screen
     if (start.isMouseHovering()) {
-      gameState = 1;
+      gameState = 1; //level menu
     } else if (help.isMouseHovering()) {
-      gameState = 3;
+      gameState = 3; //instructions 
     }
   } else if (gameState == 1) {
-    chooseLevelToPlay();
-  } else if (gameState == 2) {
+    chooseLevelToPlay(); 
+  } else if (gameState == 2) { //playing game
     if (currentLevel.levelState == 0) {
-      currentLevel.changeColour();
-    } else if (currentLevel.levelState == 2) {
-      //add reset Button
-    }
+      currentLevel.changeColour(); 
+    } 
     if (currentLevel.menu.isMouseHovering()) {
-      gameState = 1;
+      gameState = 1; //during game return to level menu
     }
   } else if (gameState == 3) {
     if ( playGame.isMouseHovering()) {
-      gameState = 1;
+      gameState = 1; //after reading instructions go to level menu
     }
   }
 }
 void keyPressed() {
-  if (currentLevel.levelState == 0) {
+  if (currentLevel.levelState == 0) { //only do this when the game is actually being played
     currentLevel.changeSwitchToColour(key);
   }
 }

@@ -18,10 +18,10 @@ void displayGameMenu() {
   lvl6.display();
 }
 
-void chooseLevelToPlay() {
+void chooseLevelToPlay() { //based on level selected create said level
 
   if (lvl1.isMouseHovering()) {
-    currentLevel = new Level("lvl1.txt", 2);
+    currentLevel = new Level("lvl1.txt", 2); //level class takes in the text file with the level design and the number of moves given
     gameState = 2;
   } else if (lvl2.isMouseHovering()) {
     currentLevel = new Level("lvl2.txt", 2);
